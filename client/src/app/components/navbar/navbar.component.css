@@ -1,0 +1,41 @@
+.navbar {
+    width: 100%;
+}
+
+.navbar-title {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 30px;
+    padding-right: 10px;
+}
+
+.navbar-spacer {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 20px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.login {
+    margin-left: auto;
+    margin-right: 0;
+    display: flex;
+    column-gap: 20px;
+    justify-content: space-between;
+}
+
+.loggedIn {
+    margin-left: auto;
+    margin-right: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login-spacer {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px;
+}

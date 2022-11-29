@@ -1,0 +1,23 @@
+<div class="home">
+    <h1 class="home-header">Test your knowledge</h1>
+    <div class="grid-container">
+        <mat-grid-list cols="2">
+            <mat-grid-tile>
+                <mat-form-field color="warn">
+                    <mat-label>Select a category</mat-label>
+                    <mat-select [(value)]="selectedCategory">
+                        <mat-option *ngFor="let category of categories" [value]="category.name">
+                            {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <app-button *ngIf="hasRoute('/home')"
+                (btnClick)="toggleNewGame()"
+                >
+                </app-button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<mat-toolbar color="primary">
+    <span class="username">{{ username }}</span>
+
+    <span class="menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" [overlapTrigger]="false">
+
+        <button mat-menu-item
+        (click)="viewScoreboard()"
+        >
+            <mat-icon
+            [ngStyle]="{'color': 'black'}"
+            >
+                scoreboard
+            </mat-icon>
+            <span>View your scores</span>
+        </button>
+
+        <button mat-menu-item
+        (click)="viewLeaderboard()"
+        >
+            <mat-icon
+            [ngStyle]="{'color': 'black'}"
+            >
+                leaderboard
+            </mat-icon>
+            <span>View the leaderboard</span>
+        </button>
+        
+        <button mat-menu-item 
+        (click)="logout()"
+        >
+            <mat-icon
+            [ngStyle]="{'color': 'black'}"
+            >
+                exit_to_app
+            </mat-icon>
+            <span>Logout</span>
+        </button>
+      </mat-menu>
+    </span>
+    
+</mat-toolbar>

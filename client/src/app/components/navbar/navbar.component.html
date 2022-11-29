@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="navbar">
+    <mat-toolbar-row>
+      <span class="navbar-title">
+        Quiz Trivia
+    </span>
+      <a routerLink="/" class="navbar-spacer">Play</a>
+      
+      <div class="login" *ngIf="!loggedIn">
+        <app-register (register)="openRegisterForm()"></app-register>
+        <app-login (login)="openLoginForm()"></app-login>
+      </div>
+      <div class="loggedIn" *ngIf="loggedIn">
+        <app-profile
+        (onLogout)="logout()"
+        >
+        </app-profile>
+      </div>
+    </mat-toolbar-row>
+</mat-toolbar>

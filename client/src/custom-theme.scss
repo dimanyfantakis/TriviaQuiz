@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$secondhand-bookstore-primary: mat-palette($mat-blue-grey, 900, 800, 700);
+$secondhand-bookstore-accent: mat-palette($mat-deep-purple);
+$secondhand-bookstore-warn: mat-palette($mat-pink);
+
+$secondhand-bookstore-theme: mat-dark-theme($secondhand-bookstore-primary, $secondhand-bookstore-accent, $secondhand-bookstore-warn);
+
+@include angular-material-theme($secondhand-bookstore-theme);

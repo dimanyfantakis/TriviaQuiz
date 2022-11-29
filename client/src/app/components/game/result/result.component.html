@@ -1,0 +1,19 @@
+<div class="score">
+    <h1 class="score-header">Score</h1>
+    <div class="bar-container">
+        <mat-progress-spinner
+            class="score-bar"
+            color="warn"
+            mode="determinate"
+            [value]="score">
+        </mat-progress-spinner>
+    </div>
+    <h2>{{score}}</h2>
+    <button mat-raised-button
+        class="btn-play-again" 
+        color="warn" 
+        (click)="playAgain()"
+        >
+            Try Again!
+        </button>
+</div>

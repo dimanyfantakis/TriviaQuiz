@@ -1,0 +1,9 @@
+.btn {
+    display: inline-flex;
+    align-items: center; 
+    justify-content: center;
+    font-size: large;
+    height: 50px !important;
+    width: 90px !important;
+    border-radius: 100px;
+}

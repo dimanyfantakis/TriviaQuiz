@@ -1,0 +1,30 @@
+.table-form {
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.header-form {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.input-form {
+    width: 100%;
+}
+
+.close-button-form {
+    margin-left: 0;
+    margin-right: auto;
+    display: flex;
+    column-gap: 20px;
+    justify-content: space-between;
+    
+}
+
+.confirm-button-form {
+    margin-left: auto;
+    margin-right: 0;
+    display: flex;
+    column-gap: 20px;
+    justify-content: space-between;
+}

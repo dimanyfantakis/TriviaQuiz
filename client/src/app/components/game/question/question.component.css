@@ -1,0 +1,28 @@
+.question {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.question-header {
+    text-align: center;
+}
+
+.question-header-lead {
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.grid-container {
+   margin-top: 40px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center; 
+    justify-content: center;
+    font-size: large;
+    height: 50px !important;
+    width: fit-content !important;
+    border-radius: 100px;
+}

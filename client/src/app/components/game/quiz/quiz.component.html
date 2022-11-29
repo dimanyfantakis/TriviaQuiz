@@ -1,0 +1,8 @@
+<div *ngIf="questions != 0">
+    <app-question
+    [question]="questions[questionId]"
+    (onChooseAnswer)="validateAnswer($event)"
+    >
+
+    </app-question>
+</div>

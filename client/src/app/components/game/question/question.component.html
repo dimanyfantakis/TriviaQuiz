@@ -1,0 +1,21 @@
+<div class="question">
+    <h1 class="question-header">{{_question.question}}</h1>
+    <div class="grid-container">
+        <mat-grid-list cols="2" rowHeight="100px">
+            <mat-grid-tile *ngFor="let answer of answers"
+                [colspan]="1"
+                [rowspan]="1"
+                [style.background]="grey"
+                >
+                <button mat-raised-button 
+                color="warn" 
+                class="btn"
+                (click)="chooseAnswer(answer)"
+                >
+                    {{answer}}
+                </button>
+                
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>
