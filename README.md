@@ -28,7 +28,7 @@ A MEAN stack web application where users can test their trivia knowledge and com
     * MongoDB Atlas to store information regarding the users
     * User authorization
     * User authentication via JWT
-* Angular front-end application
+* Angular frontend application
     * Profile component available to registered users to view their scores and the leaderboard
     * [Open Trivia API][open-trivia-database-api-url] to retrieve the information regarding the quiz, i.e., the categories, the questions and the answers
     * Global leaderboard with the top 100 scores showing the players score, username and the category in which the quiz was played
