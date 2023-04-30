@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const connect = require('../dbconnect.js');
 const User = require('../models/user');
 
+const UserService = require('../services/user');
+
 beforeAll(async () => {
     await connect();
     jest.setTimeout(5000);
@@ -20,13 +22,24 @@ afterAll(async () => {
 });
 
 const request = {
-        username: "testUsername",
-        password: "testPassword"
+    username: "testUsername",
+    password: "testPassword"
 };
 
+const userPayload = {
+    body: {
+        user: {
+            username: "newTestUsername",
+            password: "testPassword"
+        },
+        success: true
+    },
+    statusCode: 200
+  };
+
 const newRequest = {
-    username: "newTestUsername",
-    password: "newTestPassword"
+        username: "newTestUsername",
+        password: "newTestPassword"
 }
 
 describe('user', () => {
@@ -43,7 +56,10 @@ describe('user', () => {
 
         describe('new user', () => { 
             it('should return the created user', async () => {
-                const { body } = await supertest(app).post('/api/v1/user/register').send(newRequest);
+                //const registerUserServiceMock = jest.spyOn(UserService, "register").mockReturnValueOnce(userPayload);
+
+                const { status, body } = await supertest(app).post('/api/v1/user/register').send(newRequest);
+                expect(status).toBe(200);
                 expect(body.success).toBe(true);
                 expect(body.user.username).toEqual("newTestUsername");
             })

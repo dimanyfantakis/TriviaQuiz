@@ -1,113 +1,70 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-function register(req, res) {
-    User.getUserByUsername(req.body.username, (error, user) => {
-        if (user) {
-            return res.status(404).send({
-                success: false,
-                message: "A user with the username: " + user.username + ", already exists"
-            });
+async function register(userInput) {
+    try {
+        const user = await User.getUserByUsername(userInput.username);
+        if (user){
+            return;
         }
 
-        let newUser = new User({
-            username: req.body.username,
-            password: req.body.password,
+        const newUser = new User({
+            username: userInput.username,
+            password: userInput.password,
         });
-    
-        User.addUser(newUser, (error, user) => {
-            if (error) {
-                return res.status(404).send({
-                    success: false,
-                    message: "Failed to register user"
-                });
-            }
-            res.status(200).send({
-                success: true,
-                message: "User registered",
-                user: user
-            });
-        });
-    });
+        const createdUser = await User.addUser(newUser);
+        return createdUser;
+    }catch (error) {
+        console.log(error);
+        throw error;
+    }
 };
 
-function login(req, res) {
-    User.getUserByUsername(req.body.username, (error, user) => {
-        if (error) {
-            console.log(error);
-            return res.sendStatus(403);
+async function login(userInput) {
+    try {
+        const user = await User.getUserByUsername(userInput.username);
+        if (!user){
+            return;
         }
 
-        if (!user) {
-            return res.status(404).send({
-                success: false,
-                message: "A user with that username and password doesn't exist"
-            })
-        }
-        
-        jwt.sign({user: user}, 'secretkey', (error, token) => {
-            res.status(200).send({
-                success: true,
-                token: token,
-                user: user
-            });
-        });
-    });
+        const token = jwt.sign({user: user}, 'secretkey');
+        return {user, token};
+    }catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
-function addScore(req, res) {
-    jwt.verify(req.token, 'secretkey', (error) => {
-        if (error) {
-            return res.sendStatus(403);
+async function addScore(userInput, token) {
+    try {
+        jwt.verify(token, 'secretkey');
+        const user = await User.getUserByUsername(userInput.username);
+        if (!user){
+            return;
         }
-        User.getUserByUsername(req.body.username, (error, user) => {
-            if (error) {
-                console.log(error)
-                return res.sendStatus(403);
-            }
-    
-            if (!user) {
-                return res.status(404).send({
-                    success: false,
-                    message: "A user with that username and password doesn't exist"
-                })
-            }
 
-            user.scores.push({score: parseInt(req.body.score), category: req.body.category});
-            user.save();
-            res.status(200).send({
-                success: true,
-                message: "score added"
-            });
-        });
-    })
+        user.scores.push({score: parseInt(userInput.score), category: userInput.category});
+        user.save();
+        return user;
+    }catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
-function getScores(req, res) {
-    jwt.verify(req.token, 'secretkey', (error) => {
-        if (error) {
-            console.log(error)
-            return res.sendStatus(403);
+async function getScores(username, token) {
+    try {
+        jwt.verify(token, 'secretkey');
+        const user = await User.getUserByUsername(username);
+        if (!user){
+            return;
         }
-        User.getUserByUsername(req.query.username, (error, user) => {
-            if (error) {
-                console.log(error)
-                return res.sendStatus(403);
-            }
-    
-            if (!user) {
-                return res.status(404).send({
-                    success: false,
-                    message: "A user with that username and password doesn't exist"
-                })
-            }
 
-            res.status(200).send({
-                scores: user.scores,
-                success: true
-            });
-        });
-    })
+        return user.scores;
+    }catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
 module.exports = {

@@ -1,36 +1,27 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-function getLeaderboard(req, res) {
-    jwt.verify(req.token, 'secretkey', (error) => {
-        if (error) {
-            return res.sendStatus(403);
-        }
+async function getLeaderboard(token) {
+    try {
+        jwt.verify(token, 'secretkey');
+        const users = await User.getUsers({});
 
-        let usersScores = [];
-        User.getUsers({}, (error, users) => {
-            if (error) {
-                console.log(error)
-                return res.sendStatus(403);
-            }
-
-            users.forEach((user) => {
-                user.scores.forEach((score) => {
-                    usersScores.push({username: user.username, score: score.score, category: score.category});
-                })
-            })
-            
-            usersScores.sort((a,b) => {
-                return parseFloat(b.score) - parseFloat(a.score);
+        const usersScores = [];
+        users.forEach((user) => {
+            user.scores.forEach((score) => {
+                usersScores.push({username: user.username, score: score.score, category: score.category});
             });
-            const topHundredUserScores = usersScores.slice(0, 100);
-
-            res.status(200).send({
-                leaderboard: topHundredUserScores,
-                success: true
-            });
-        })
-    })
+        });
+        usersScores.sort((a,b) => {
+            return parseFloat(b.score) - parseFloat(a.score);
+        });
+        
+        const leaderboard = usersScores.slice(0, 100);
+        return leaderboard;
+    }catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
 module.exports = {

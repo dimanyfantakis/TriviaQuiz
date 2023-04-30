@@ -25,23 +25,33 @@ module.exports.getUserById = function(id, callback) {
     User.findById(id, callback);
 }
 
-module.exports.getUsers = function(id, callback) {
-    User.find({}, callback);
+module.exports.getUsers = async function(id) {
+    try {
+        const users = await User.find({});
+        return users;        
+    }catch (error) {
+        throw error;
+    }
 }
 
-module.exports.getUserByUsername = function(username, callback) {
+module.exports.getUserByUsername = async function(username) {
     const query = {username: username}
-    User.findOne(query, callback);
+    try {
+        const user = await User.findOne(query);
+        return user;
+    }catch (error) {
+        throw error;    
+    }
 }
 
-module.exports.addUser = function(newUser, callback) {
-    bcrypt.genSalt(10, (error, salt) => {
-        bcrypt.hash(newUser.password, salt, (error, hash) => {
-            if (error) {
-                throw error;
-            }
-            newUser.password = hash;
-            newUser.save(callback);
-        });
-    })
+module.exports.addUser = async function(newUser) {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(newUser.password, salt);
+        newUser.password = hash;
+        const createdUser = await newUser.save();
+        return createdUser;
+    }catch (error) {
+        throw error;
+    }
 }
